@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
 import NoTasks from "./components/NoTasks";
+import Loading from "./components/Loading";
 
 import { useState, useEffect } from "react";
 import { ITask } from "./types";
@@ -48,7 +49,20 @@ export default function Home() {
 
   const handleCompleteTask = async () => {};
 
-  const handleDeleteTask = async () => {};
+  const handleDeleteTask = async (id: string) => {
+    try {
+      const response = await fetch(`/api/task/delete/${id}`, {
+        method: "DELETE",
+      });
+      if(response.ok){
+        setAllTasks((prevTasks) =>prevTasks.filter((task:ITask) => task._id !== id) )
+      }else{
+        console.log('error')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchTasks();
