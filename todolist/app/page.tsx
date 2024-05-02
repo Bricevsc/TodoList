@@ -1,5 +1,5 @@
 "use client";
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import Header from "./components/Header";
 import Task from "./components/Task";
@@ -63,7 +63,7 @@ export default function Home() {
         handleCreateTask={handleCreateTask}
       />
       {isLoadind ? (
-        <Spinner />
+        <Loading />
       ) : (
         <>
           <Flex direction="column" p="2rem">
