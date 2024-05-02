@@ -47,17 +47,30 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  const handleCompleteTask = async () => {};
+  const handleCompleteTask = async (id: string) => {
+    try {
+      const response = await fetch(`/api/task/complete/${id}`, {
+        method: "PATCH",
+      });
+      if (response.ok) {
+        await fetchTasks();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDeleteTask = async (id: string) => {
     try {
       const response = await fetch(`/api/task/delete/${id}`, {
         method: "DELETE",
       });
-      if(response.ok){
-        setAllTasks((prevTasks) =>prevTasks.filter((task:ITask) => task._id !== id) )
-      }else{
-        console.log('error')
+      if (response.ok) {
+        setAllTasks((prevTasks) =>
+          prevTasks.filter((task: ITask) => task._id !== id)
+        );
+      } else {
+        console.log("error");
       }
     } catch (error) {
       console.log(error);
